@@ -1,5 +1,6 @@
 import pygame
 from itertools import combinations as combo
+from random import randint
 
 pygame.init()
 c = pygame.time.Clock()
@@ -9,6 +10,9 @@ size = h, w = [600, 600]
 
 speed = [5, 7]
 fric = 0.9
+frameRate = 90
+accelChance = 50
+accelRate = 1.05
 
 blank = pygame.Surface(size)
 blank.fill(white)
@@ -50,6 +54,7 @@ class Ball(pygame.sprite.Sprite):
 
 ballpic = pygame.image.load("ball.png").convert_alpha()
 
+
 balls = [Ball('ball1', 300, 200, 2, 7),
          Ball('ball2', 300, 300, 4, 7),
          Ball('ball3', 400, 300, 9, 7),
@@ -57,9 +62,9 @@ balls = [Ball('ball1', 300, 200, 2, 7),
 
 screen.fill(white)
 
-
 while 1:
     for ball in balls:
+        ball.speed = [s * -1 for s in ball.speed]
         ball.move()
         ball.boarders()
         screen.blit(ballpic, ball.rect)
@@ -67,7 +72,11 @@ while 1:
     for b1, b2 in combo(balls, 2):
         b1.collide(b2)
 
+    for i in range(1):
+        if rand.randint(0, accelChance) == 0:
+            for ball in balls:
+                ball.speed[i] *= accelRate
+
     screen.blit(blank, blank.get_rect())
     pygame.display.flip()
-    c.tick(70)
-    #print "FPS:",c.get_fps()
+    c.tick(frameRate)
