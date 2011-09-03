@@ -1,4 +1,5 @@
 import pygame, sys
+import random as rand
 
 pygame.init()
 c = pygame.time.Clock()
@@ -8,6 +9,9 @@ size = h, w = [600, 600]
 
 speed = [5, 7]
 fric = 0.9
+frameRate = 90
+accelChance = 50
+accelRate = 1.05
 
 blank = pygame.Surface(size)
 blank.fill(white)
@@ -30,26 +34,30 @@ class Ball(pygame.sprite.Sprite):
 
     def move(self):
         self.rect.move_ip(self.speed)
-        print self, "moved"
 
     def __str__(self):
         return "<" + self.name + ">"
 
 ballpic = pygame.image.load("ball.png").convert_alpha()
 
-balls = [Ball('ball1', 200, 200, -7, -8), Ball("ball2")]
+balls = [Ball('ball1'), Ball("ball2")]
 
 screen.fill(white)
 
-
 while 1:
     for ball in balls:
-        print "Working on", ball
         ball.move()
         ball.boarders()
         screen.blit(ballpic, ball.rect)
 
     screen.blit(blank, blank.get_rect())
     pygame.display.flip()
-    c.tick(70)
+    c.tick(frameRate)
+    for b in balls:
+        for s in b.speed:
+            s *= fric
+    for i in range(1):
+        if rand.randint(0,accelChance) == 0:
+            for b in balls:
+                b.speed[i] *= accelRate
     #print "FPS:",c.get_fps()
