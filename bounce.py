@@ -1,12 +1,16 @@
 import pygame, sys
+import random as rand
 
 pygame.init()
 
 size = h, w = [600, 600]
-speed = [5, 7]
+speed = [10, 10]
 fric = 0.9
 
 white = 255, 255, 255
+frameRate = 70
+accelChance = 50
+accelRate = 1.05
 
 blank = pygame.Surface(size)
 blank.fill(white)
@@ -33,5 +37,10 @@ while 1:
     screen.blit(blank, blank.get_rect())
     screen.blit(ball, ballr)
     pygame.display.flip()
-    c.tick(70)
+    c.tick(frameRate)
+    for x in speed:
+        x *= fric
+    for i in range(1):
+        if rand.randint(0,accelChance) == 0:
+            speed[i] *= accelRate
     #print "FPS:",c.get_fps()
