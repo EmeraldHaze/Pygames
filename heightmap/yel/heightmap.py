@@ -14,17 +14,17 @@ def getat(x,y):
         n = grid[x,y]
     return n
 
-for i in range(10):
+for i in range(input('Smooth how much? ')):
     for x in range(0, w):
         for y in range(0, h):
             newgrid[x,y] = (getat(x,y) + getat(x-1,y) + getat(x,y+1) + getat(x-1,y) + getat(x,y-1)) / 5
-    print newgrid
     grid = newgrid
 
-pygame.init()
 colorgrid = zeros((w, h, 3), int)
 for x in range(0,w):
     for y in range(0,h):
         colorgrid[x,y,1] = grid[x,y]
+
+pygame.init()
 image = pygame.surfarray.make_surface(colorgrid)
 pygame.image.save(image, "image.png")
