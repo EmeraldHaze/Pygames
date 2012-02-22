@@ -1,7 +1,6 @@
 """
 Makes a mountain ridge line
 """
-
 import pygame
 from random import randrange
 
@@ -33,3 +32,5 @@ while modrange > 1:
             #This happens at the last item
     points = list(newpoints)
     modrange /= 2
+
+pygame.image.save(window, raw_input("Filename? ") + ".png")
