@@ -14,7 +14,7 @@ def getat(x,y):
 
 for x in range(0, w):
     for y in range(0, h):
-        grid[x,y] = (x - y) - (y - x)
+        grid[x,y] = (x ** 1) * 5 + (y ** 2) * 5
 
 for i in range(0):
     for x in range(0, w):
@@ -31,7 +31,12 @@ for x in range(0,w):
 
 pygame.init()
 image = pygame.surfarray.make_surface(colorgrid)
-pygame.image.save(image, "image.png")
+
+screen = pygame.display.set_mode(size)
+screen.blit(image, image.get_rect())
+pygame.display.flip()
+
+#pygame.image.save(image, "oimage.png")
 
 print 'Done'
 

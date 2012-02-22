@@ -9,36 +9,14 @@ green = (0, 0xFF, 0)
 blue = (0, 0, 0xFF)
 black = (0, 0, 0)
 
-dirs = [0, 2, 1, 3, 0]*2
-colors = [green, blue, red, red, red]*2
-repeat = 50
-
 pygame.init()
 screen = pygame.display.set_mode(size)
-pygame.display.set_caption("Drawer")
+pygame.display.set_caption("Colors")
 
 screen.fill(white)
 pygame.display.flip()
-    
+
 sarr = pygame.surfarray.pixels3d(screen)
-
-point = [size[0]/2,size[1]/2]
-
-for i in range(repeat):
-    print "repeat", i
-    for j in range(len(dirs)):
-        print "State", dirs[j]
-        if dirs[j] == 0:
-            point[0] += 1
-        elif dirs[j] == 1:
-            point[0] -= 1
-        elif dirs[j] == 2:
-            point[1] -= 1
-        elif dirs[j] == 3:
-            point[1] += 1
-        sarr[point[0], point[1]] = colors[j]
-        print 'color at point', point, 'set to', colors[j]
-pygame.display.flip()
 
 
 # -------- Wait loop-----------
