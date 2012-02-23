@@ -1,3 +1,8 @@
+MODRANGE = 200
+MODFACTOR = 0.6
+PAUSE = 0.1
+SAVE = True
+
 """
 Makes a mountain ridge line
 """
@@ -7,9 +12,11 @@ from random import randrange
 pygame.init()
 
 window = pygame.display.set_mode((600, 600))
+I = -1
 while 1:
+    I += 1
     points = [(0, 300), (600, 300)]
-    modrange = 100
+    modrange = MODRANGE
 
     avrg = lambda *a: sum(a) / len(a)
     newpoints = list(points)
@@ -35,8 +42,9 @@ while 1:
                 pass
                 #This happens at the last item
         points = list(newpoints)
-        modrange *= 0.7
+        modrange *= MODFACTOR
         modrange = int(modrange)
-        time.sleep(0.1)
+        time.sleep(PAUSE)
+        if SAVE:
+            pygame.image.save(window, "mountains%s.png" % I)
     #raw_input()
-#pygame.image.save(window, raw_input("Filename? ") + ".png")
